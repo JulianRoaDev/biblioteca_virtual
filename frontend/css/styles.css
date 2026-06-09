@@ -184,3 +184,96 @@ a { text-decoration: none; color: inherit; }
   .books-grid { grid-template-columns: repeat(2, 1fr); }
   .auth-card { padding: 2rem 1.5rem; }
 }
+
+/* =====================================================
+   AÑADIR al final de frontend/css/styles.css
+   ===================================================== */
+
+/* ── Buscador del dashboard ─────────────────────────── */
+.dashboard-search {
+  margin-bottom: 1.8rem;
+}
+
+.dashboard-search input {
+  width: 100%;
+  max-width: 520px;
+  padding: 0.75rem 1.1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dashboard-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+}
+
+/* ── Estado vacío / sin resultados ──────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.empty-state p {
+  font-size: 1rem;
+}
+
+/* ── Banner para usuarios no logueados ──────────────── */
+.guest-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: var(--pastel-yellow);
+  border: 2px solid #fde68a;
+  border-radius: var(--radius);
+  padding: 1rem 1.4rem;
+  margin-top: 2rem;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.guest-banner span {
+  font-size: 1.4rem;
+}
+
+.guest-banner p {
+  flex: 1;
+  margin: 0;
+}
+
+/* ── Año y candado en tarjeta de libro ──────────────── */
+.book-card-year {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+}
+
+.book-card-lock {
+  font-size: 0.78rem;
+  color: var(--primary);
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+/* ── Cursor bloqueado en tarjetas para invitados ─────── */
+.book-card[title*="Inicia"] {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.book-card[title*="Inicia"]:hover {
+  transform: none;
+  box-shadow: var(--shadow);
+}

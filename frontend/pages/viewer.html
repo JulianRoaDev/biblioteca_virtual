@@ -9,10 +9,12 @@
 <body>
   <nav class="navbar">
     <div class="nav-brand">📚 Biblioteca Virtual</div>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="dashboard.html" class="nav-link">Inicio</a>
-      <a href="books.html" class="nav-link">Gestionar Libros</a>
-      <button class="btn btn-outline btn-sm" id="logout-btn">Cerrar Sesión</button>
+      <!-- Solo visible si está logueado -->
+      <a href="books.html" class="nav-link nav-auth-only hidden" id="manage-link">Gestionar Libros</a>
+      <!-- Botón dinámico -->
+      <button class="btn btn-sm" id="session-btn"></button>
     </div>
     <button class="nav-toggle" id="nav-toggle">☰</button>
   </nav>
@@ -38,6 +40,7 @@
       <p class="text-muted" id="book-date"></p>
     </div>
   </main>
+
   <script src="../js/viewers.js"></script>
 </body>
 </html>

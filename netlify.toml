@@ -4,5 +4,5 @@
 
 [[redirects]]
   from = "/"
-  to   = "/pages/login.html"
+  to   = "/pages/dashboard.html"
   status = 301

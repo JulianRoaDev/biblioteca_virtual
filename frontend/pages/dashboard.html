@@ -3,28 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard — Biblioteca Virtual</title>
+  <title>Biblioteca Virtual</title>
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-brand">📚 Biblioteca Virtual</div>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="dashboard.html" class="nav-link active">Inicio</a>
-      <a href="books.html" class="nav-link">Gestionar Libros</a>
-      <a href="upload.html" class="nav-link">Subir Libro</a>
-      <button class="btn btn-outline btn-sm" id="logout-btn">Cerrar Sesión</button>
+
+      <!-- Solo visible si está logueado -->
+      <a href="books.html"  class="nav-link nav-auth-only hidden">Gestionar Libros</a>
+      <a href="upload.html" class="nav-link nav-auth-only hidden">Subir Libro</a>
+
+      <!-- Botón dinámico: Cerrar Sesión / Iniciar Sesión -->
+      <button class="btn btn-outline btn-sm" id="session-btn"></button>
     </div>
     <button class="nav-toggle" id="nav-toggle">☰</button>
   </nav>
 
   <main class="container">
+
+    <!-- Hero: visible siempre -->
     <section class="hero">
-      <h2>Bienvenido, <span id="admin-name">Administrador</span> 👋</h2>
-      <p>Gestiona tu colección de libros digitales desde este panel.</p>
+      <h2 id="hero-title">Bienvenido a la Biblioteca Virtual 📖</h2>
+      <p id="hero-subtitle">Explora nuestra colección de libros digitales.</p>
     </section>
 
-    <div class="stats-grid">
+    <!-- Stats: solo cuando está logueado -->
+    <div class="stats-grid nav-auth-only hidden" id="stats-section">
       <div class="stat-card">
         <span class="stat-icon">📖</span>
         <div>
@@ -41,13 +48,37 @@
       </div>
     </div>
 
+    <!-- Buscador: visible siempre -->
     <section class="section">
-      <h3 class="section-title">Últimos libros agregados</h3>
-      <div class="books-grid" id="recent-grid">
-        <p class="loading-text">Cargando...</p>
+      <div class="dashboard-search">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="🔍 Buscar por título o autor..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div id="books-status" class="loading-text">Cargando libros...</div>
+
+      <div class="books-grid" id="books-grid"></div>
+
+      <!-- Mensaje sin resultados -->
+      <div id="no-results" class="empty-state hidden">
+        <span class="empty-icon">📭</span>
+        <p>No se encontraron libros con ese criterio.</p>
+      </div>
+
+      <!-- Banner para no logueados -->
+      <div id="guest-banner" class="guest-banner hidden">
+        <span>🔒</span>
+        <p>Inicia sesión para gestionar y subir libros.</p>
+        <a href="login.html" class="btn btn-primary btn-sm">Iniciar Sesión</a>
       </div>
     </section>
+
   </main>
-  <script src="../js/books.js"></script>
+
+  <script src="../js/dashboard.js"></script>
 </body>
 </html>
