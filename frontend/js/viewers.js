@@ -1,4 +1,4 @@
-const API = 'http://localhost:3000/api'; // En producción: tu URL de Render
+const API = 'https://biblioteca-virtual-kos6.onrender.com'; // En producción: tu URL de Render
 
 // Verificar sesión
 if (!localStorage.getItem('token')) {
