@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { pool }              from '../config/db';
-import { cloudinary }        from '../middleware/upload.middleware';
+import { pool } from '../config/db';
+import { cloudinary } from '../middleware/upload.middleware';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -48,7 +48,7 @@ export const getAllBooks = async (_req: Request, res: Response): Promise<void> =
     );
     res.json(result.rows);
   } catch (error) {
-    console.error('getAllBooks:', error);
+    console.error('getAllBooks:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
     res.status(500).json({ message: 'Error al obtener libros' });
   }
 };
@@ -74,8 +74,7 @@ export const createBook = async (req: Request, res: Response): Promise<void> => 
   const { title, author, synopsis, publication_date } = req.body;
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
-  // multer-storage-cloudinary guarda la URL de Cloudinary en file.path
-  const pdfFile   = files?.pdf?.[0];
+  const pdfFile = files?.pdf?.[0];
   const coverFile = files?.cover?.[0];
 
   if (!pdfFile) {
@@ -83,30 +82,35 @@ export const createBook = async (req: Request, res: Response): Promise<void> => 
     return;
   }
 
-  const pdfUrl   = pdfFile.path;            // URL pública de Cloudinary
+  const pdfUrl = pdfFile.path;
   const coverUrl = coverFile?.path ?? null;
+
+  // ✅ Fix 1: fecha vacía → null (evita el error 22007 de PostgreSQL)
+  const pubDate = publication_date && publication_date.trim() !== ''
+    ? publication_date
+    : null;
 
   try {
     const result = await pool.query(
       `INSERT INTO books (title, author, synopsis, publication_date, cover_url, pdf_url)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [title, author, synopsis, publication_date, coverUrl, pdfUrl]
+      [title, author, synopsis, pubDate, coverUrl, pdfUrl]  // ✅ pubDate en vez de publication_date
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    // Si falla la BD, eliminar los archivos ya subidos a Cloudinary
-    await deleteFromCloudinary(pdfUrl,   'raw');
+    await deleteFromCloudinary(pdfUrl, 'raw');
     await deleteFromCloudinary(coverUrl, 'image');
-    console.error('createBook:', error);
+    // ✅ Fix 2: serializar el error correctamente para verlo en los logs
+    console.error('createBook:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
     res.status(500).json({ message: 'Error al crear el libro' });
   }
 };
 
 export const updateBook = async (req: Request, res: Response): Promise<void> => {
-  const { id }    = req.params;
+  const { id } = req.params;
   const { title, author, synopsis, publication_date } = req.body;
-  const files     = req.files as { [fieldname: string]: Express.Multer.File[] };
+  const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
   try {
     const existing = await pool.query('SELECT * FROM books WHERE id = $1', [id]);
@@ -116,12 +120,12 @@ export const updateBook = async (req: Request, res: Response): Promise<void> => 
     }
 
     const oldBook = existing.rows[0];
-    const newPdfFile   = files?.pdf?.[0];
+    const newPdfFile = files?.pdf?.[0];
     const newCoverFile = files?.cover?.[0];
 
     // Usar la nueva URL si se subió un archivo nuevo; si no, mantener la anterior
-    const pdfUrl   = newPdfFile   ? newPdfFile.path   : oldBook.pdf_url;
-    const coverUrl = newCoverFile ? newCoverFile.path  : oldBook.cover_url;
+    const pdfUrl = newPdfFile ? newPdfFile.path : oldBook.pdf_url;
+    const coverUrl = newCoverFile ? newCoverFile.path : oldBook.cover_url;
 
     const result = await pool.query(
       `UPDATE books
@@ -133,7 +137,7 @@ export const updateBook = async (req: Request, res: Response): Promise<void> => 
     );
 
     // Eliminar archivos viejos de Cloudinary SOLO si se reemplazaron
-    if (newPdfFile)   await deleteFromCloudinary(oldBook.pdf_url,   'raw');
+    if (newPdfFile) await deleteFromCloudinary(oldBook.pdf_url, 'raw');
     if (newCoverFile) await deleteFromCloudinary(oldBook.cover_url, 'image');
 
     res.json(result.rows[0]);
@@ -160,7 +164,7 @@ export const deleteBook = async (req: Request, res: Response): Promise<void> => 
 
     // Luego limpiar Cloudinary (no bloqueante para el response)
     await Promise.all([
-      deleteFromCloudinary(book.pdf_url,   'raw'),
+      deleteFromCloudinary(book.pdf_url, 'raw'),
       deleteFromCloudinary(book.cover_url, 'image'),
     ]);
 
@@ -203,7 +207,7 @@ export const getPDFUrl = async (req: Request, res: Response): Promise<void> => {
       if (publicId) {
         const downloadUrl = cloudinary.url(publicId, {
           resource_type: 'raw',
-          flags:         `attachment:${encodeURIComponent(title)}.pdf`,
+          flags: `attachment:${encodeURIComponent(title)}.pdf`,
         });
         res.redirect(downloadUrl);
       } else {
