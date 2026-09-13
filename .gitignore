@@ -14,9 +14,10 @@ dist/
 build/
 *.tsbuildinfo
 
-# IDEs
+# IDEs y Agentes
 .vscode/
 .idea/
+.agents/
 .DS_Store
 *.swp
 *.swo

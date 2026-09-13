@@ -7,23 +7,25 @@
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body class="auth-page">
-  <div class="auth-card">
-    <div class="auth-logo">📚</div>
-    <h1 class="auth-title">Biblioteca Virtual</h1>
-    <p class="auth-subtitle">Panel de Administrador</p>
+  <main class="auth-card" aria-labelledby="auth-heading">
+    <div class="auth-logo" aria-hidden="true">📚</div>
+    <h1 class="auth-title" id="auth-heading">Biblioteca Virtual</h1>
+    <p class="auth-subtitle">Panel de Administración Corporativa</p>
 
-    <div id="error-msg" class="alert alert-error hidden"></div>
+    <div id="error-msg" class="alert alert-error hidden" role="alert"></div>
 
-    <div class="form-group">
-      <label for="username">Usuario</label>
-      <input type="text" id="username" placeholder="admin" autocomplete="username" />
-    </div>
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
-    </div>
-    <button class="btn btn-primary btn-full" id="login-btn">Iniciar Sesión</button>
-  </div>
+    <form onsubmit="return false;">
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input type="text" id="username" placeholder="admin" autocomplete="username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" id="login-btn">Iniciar Sesión</button>
+    </form>
+  </main>
   <script src="../js/auth.js"></script>
 </body>
 </html>

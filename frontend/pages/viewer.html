@@ -7,35 +7,37 @@
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-brand">📚 Biblioteca Virtual</div>
-    <div class="nav-links" id="nav-links">
-      <a href="dashboard.html" class="nav-link">Inicio</a>
-      <!-- Solo visible si está logueado -->
-      <a href="books.html" class="nav-link nav-auth-only hidden" id="manage-link">Gestionar Libros</a>
-      <!-- Botón dinámico -->
-      <button class="btn btn-sm" id="session-btn"></button>
-    </div>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
-  </nav>
+  <header>
+    <nav class="navbar" aria-label="Navegación principal">
+      <div class="nav-brand">📚 Biblioteca Virtual</div>
+      <div class="nav-links" id="nav-links">
+        <a href="dashboard.html" class="nav-link">Inicio</a>
+        <!-- Solo visible si está logueado -->
+        <a href="books.html" class="nav-link nav-auth-only hidden" id="manage-link">Gestionar Libros</a>
+        <!-- Botón dinámico -->
+        <button class="btn btn-sm" id="session-btn" aria-label="Cuenta de usuario"></button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación">☰</button>
+    </nav>
+  </header>
 
   <main class="container viewer-container">
     <div class="viewer-header">
       <div>
-        <h2 id="book-title">Cargando...</h2>
+        <h1 id="book-title" style="font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;">Cargando...</h1>
         <p id="book-author" class="text-muted"></p>
       </div>
     </div>
 
     <div class="pdf-viewer-wrapper">
-      <iframe id="pdf-iframe" class="pdf-iframe" src="" title="Visor PDF"></iframe>
+      <iframe id="pdf-iframe" class="pdf-iframe" src="" title="Visor de documento PDF"></iframe>
     </div>
 
-    <div class="book-info-card">
+    <article class="book-info-card">
       <h4>Sinopsis</h4>
       <p id="book-synopsis">—</p>
-      <p class="text-muted" id="book-date"></p>
-    </div>
+      <p class="text-muted" id="book-date" style="margin-top:0.75rem;"></p>
+    </article>
   </main>
 
   <script src="../js/viewers.js"></script>

@@ -3,53 +3,56 @@
 /* ── Tokens ──────────────────────────────────────────────────── */
 :root {
   /* Superficies */
-  --bg:          #F0F4FF;
+  --bg:          #F8FAFC;
   --bg-card:     #FFFFFF;
-  --bg-elevated: #F7F9FF;
+  --bg-elevated: #F1F5F9;
   --surface:     #FFFFFF;
 
-  /* Acentos — azul vibrante igual que las referencias */
-  --primary:      #3B6FF0;
-  --primary-dark: #2755CC;
-  --primary-soft: #EEF2FF;
-  --accent:       #F59E0B;
-  --accent-soft:  #FFF8E7;
+  /* Acentos — Azul Corporativo Enterprise */
+  --primary:      #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-soft: #EFF6FF;
+  --accent:       #D97706;
+  --accent-soft:  #FFFBEB;
 
-  /* Verde para stats positivos */
-  --green:      #10B981;
+  /* Indicadores */
+  --green:      #059669;
   --green-soft: #ECFDF5;
+  --danger:     #DC2626;
+  --danger-soft:#FEF2F2;
 
   /* Texto */
-  --text:       #1A1F36;
-  --text-muted: #6B7280;
-  --text-faint: #9CA3AF;
+  --text:       #0F172A;
+  --text-muted: #475569;
+  --text-faint: #94A3B8;
 
   /* Bordes y sombras */
-  --border:       #E5E9F2;
-  --border-focus: #3B6FF0;
-  --shadow:       0 2px 12px rgba(59, 111, 240, 0.08);
-  --shadow-md:    0 6px 24px rgba(59, 111, 240, 0.12);
-  --shadow-lg:    0 12px 40px rgba(59, 111, 240, 0.16);
+  --border:       #E2E8F0;
+  --border-focus: #2563EB;
+  --shadow-sm:    0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow:       0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.08);
+  --shadow-md:    0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.08);
+  --shadow-lg:    0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
 
   /* Forma */
-  --radius:    16px;
-  --radius-sm: 10px;
-  --radius-xs: 6px;
+  --radius:    12px;
+  --radius-sm: 8px;
+  --radius-xs: 4px;
 
   /* Tipografía */
-  --font-display: 'Nunito', 'Segoe UI', system-ui, sans-serif;
-  --font-ui:      'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-ui:      'Inter', system-ui, -apple-system, sans-serif;
 
   /* Transición */
-  --t: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --t: 0.15s ease-in-out;
 
-  /* Aliases para retrocompatibilidad */
-  --pastel-purple: #EEF2FF;
-  --pastel-blue:   #E0EAFF;
-  --pastel-yellow: #FFF8E7;
+  /* Aliases */
+  --pastel-purple: #EFF6FF;
+  --pastel-blue:   #DBEAFE;
+  --pastel-yellow: #FFFBEB;
   --pastel-green:  #ECFDF5;
-  --pastel-pink:   #FFF0F5;
-  --pastel-peach:  #FFF4E5;
+  --pastel-pink:   #FEE2E2;
+  --pastel-peach:  #FFEDD5;
   --primary-dark-alias: var(--primary-dark);
 }
 
@@ -60,11 +63,12 @@ body {
   font-family: var(--font-ui);
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 /* ── Scrollbar ───────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 6px; }

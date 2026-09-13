@@ -3,54 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Biblioteca Virtual</title>
+  <title>Biblioteca Virtual — Panel Principal</title>
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-brand">📚 Biblioteca Virtual</div>
-    <div class="nav-links" id="nav-links">
-      <a href="dashboard.html" class="nav-link active">Inicio</a>
+  <header>
+    <nav class="navbar" aria-label="Navegación principal">
+      <div class="nav-brand">📚 Biblioteca Virtual</div>
+      <div class="nav-links" id="nav-links">
+        <a href="dashboard.html" class="nav-link active" aria-current="page">Inicio</a>
 
-      <!-- Solo visible si está logueado -->
-      <a href="books.html"  class="nav-link nav-auth-only hidden">Gestionar Libros</a>
-      <a href="upload.html" class="nav-link nav-auth-only hidden">Subir Libro</a>
+        <!-- Solo visible si está logueado -->
+        <a href="books.html" class="nav-link nav-auth-only hidden">Gestionar Libros</a>
+        <a href="upload.html" class="nav-link nav-auth-only hidden">Subir Libro</a>
 
-      <!-- Botón dinámico: Cerrar Sesión / Iniciar Sesión -->
-      <button class="btn btn-outline btn-sm" id="session-btn"></button>
-    </div>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
-  </nav>
+        <!-- Botón dinámico: Cerrar Sesión / Iniciar Sesión -->
+        <button class="btn btn-outline btn-sm" id="session-btn" aria-label="Cuenta de usuario"></button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación">☰</button>
+    </nav>
+  </header>
 
   <main class="container">
 
     <!-- Hero: visible siempre -->
-    <section class="hero">
-      <h2 id="hero-title">Bienvenido a la Biblioteca Virtual 📖</h2>
-      <p id="hero-subtitle">Explora nuestra colección de libros digitales.</p>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Bienvenido a la Biblioteca Virtual 📖</h1>
+      <p id="hero-subtitle">Explora la colección digital corporativa y gestiona tus publicaciones.</p>
     </section>
 
     <!-- Stats: solo cuando está logueado -->
-    <div class="stats-grid nav-auth-only hidden" id="stats-section">
+    <section class="stats-grid nav-auth-only hidden" id="stats-section" aria-label="Estadísticas generales">
       <div class="stat-card">
-        <span class="stat-icon">📖</span>
+        <span class="stat-icon" aria-hidden="true">📖</span>
         <div>
           <p class="stat-value" id="total-books">—</p>
           <p class="stat-label">Libros totales</p>
         </div>
       </div>
       <div class="stat-card">
-        <span class="stat-icon">🆕</span>
+        <span class="stat-icon" aria-hidden="true">🆕</span>
         <div>
           <p class="stat-value" id="recent-books">—</p>
           <p class="stat-label">Agregados este mes</p>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Buscador: visible siempre -->
-    <section class="section">
+    <section class="section" aria-label="Catálogo de libros">
       <div class="dashboard-search">
+        <label for="search-input" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Buscar libros</label>
         <input
           type="text"
           id="search-input"
@@ -65,13 +68,13 @@
 
       <!-- Mensaje sin resultados -->
       <div id="no-results" class="empty-state hidden">
-        <span class="empty-icon">📭</span>
+        <span class="empty-icon" aria-hidden="true">📭</span>
         <p>No se encontraron libros con ese criterio.</p>
       </div>
 
       <!-- Banner para no logueados -->
-      <div id="guest-banner" class="guest-banner hidden">
-        <span>🔒</span>
+      <div id="guest-banner" class="guest-banner hidden" role="region" aria-label="Aviso de sesión">
+        <span aria-hidden="true">🔒</span>
         <p>Inicia sesión para gestionar y subir libros.</p>
         <a href="login.html" class="btn btn-primary btn-sm">Iniciar Sesión</a>
       </div>

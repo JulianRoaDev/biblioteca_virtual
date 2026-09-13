@@ -7,16 +7,18 @@
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-brand">📚 Biblioteca Virtual</div>
-    <div class="nav-links">
-      <a href="dashboard.html" class="nav-link">Inicio</a>
-      <a href="books.html" class="nav-link active">Gestionar Libros</a>
-      <a href="upload.html" class="nav-link">Subir Libro</a>
-      <button class="btn btn-outline btn-sm" id="logout-btn">Cerrar Sesión</button>
-    </div>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
-  </nav>
+  <header>
+    <nav class="navbar" aria-label="Navegación principal">
+      <div class="nav-brand">📚 Biblioteca Virtual</div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-link">Inicio</a>
+        <a href="books.html" class="nav-link active" aria-current="page">Gestionar Libros</a>
+        <a href="upload.html" class="nav-link">Subir Libro</a>
+        <button class="btn btn-outline btn-sm" id="logout-btn">Cerrar Sesión</button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación">☰</button>
+    </nav>
+  </header>
 
   <main class="container">
     <div class="page-header">
@@ -25,18 +27,20 @@
     </div>
 
     <div class="search-bar">
+      <label for="search-input" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Buscar por título o autor</label>
       <input type="text" id="search-input" placeholder="🔍 Buscar por título o autor..." />
     </div>
 
     <div class="books-table-wrapper">
       <table class="books-table">
+        <caption>Catálogo de publicaciones registradas</caption>
         <thead>
           <tr>
-            <th>Portada</th>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Fecha de Publicación</th>
-            <th>Acciones</th>
+            <th scope="col">Portada</th>
+            <th scope="col">Título</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Fecha de Publicación</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody id="books-tbody">
@@ -47,24 +51,24 @@
   </main>
 
   <!-- Modal de edición -->
-  <div class="modal-overlay hidden" id="edit-modal">
+  <div class="modal-overlay hidden" id="edit-modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
     <div class="modal">
-      <h3>Editar Libro</h3>
+      <h3 id="modal-title">Editar Libro</h3>
       <input type="hidden" id="edit-id" />
       <div class="form-group">
-        <label>Título</label>
+        <label for="edit-title">Título</label>
         <input type="text" id="edit-title" />
       </div>
       <div class="form-group">
-        <label>Autor</label>
+        <label for="edit-author">Autor</label>
         <input type="text" id="edit-author" />
       </div>
       <div class="form-group">
-        <label>Fecha de Publicación</label>
+        <label for="edit-date">Fecha de Publicación</label>
         <input type="date" id="edit-date" />
       </div>
       <div class="form-group">
-        <label>Sinopsis</label>
+        <label for="edit-synopsis">Sinopsis</label>
         <textarea id="edit-synopsis" rows="4"></textarea>
       </div>
       <div class="modal-actions">

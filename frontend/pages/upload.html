@@ -7,32 +7,34 @@
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-brand">📚 Biblioteca Virtual</div>
-    <div class="nav-links">
-      <a href="dashboard.html" class="nav-link">Inicio</a>
-      <a href="books.html" class="nav-link">Gestionar Libros</a>
-      <a href="upload.html" class="nav-link active">Subir Libro</a>
-      <button class="btn btn-outline btn-sm" id="logout-btn">Cerrar Sesión</button>
-    </div>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
-  </nav>
+  <header>
+    <nav class="navbar" aria-label="Navegación principal">
+      <div class="nav-brand">📚 Biblioteca Virtual</div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-link">Inicio</a>
+        <a href="books.html" class="nav-link">Gestionar Libros</a>
+        <a href="upload.html" class="nav-link active" aria-current="page">Subir Libro</a>
+        <button class="btn btn-outline btn-sm" id="logout-btn">Cerrar Sesión</button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación">☰</button>
+    </nav>
+  </header>
 
   <main class="container">
     <div class="page-header">
       <h2>Subir Nuevo Libro</h2>
     </div>
 
-    <div id="upload-alert" class="alert hidden"></div>
+    <div id="upload-alert" class="alert hidden" role="alert"></div>
 
     <div class="upload-card">
       <div class="form-group">
         <label for="title">Título <span class="required">*</span></label>
-        <input type="text" id="title" placeholder="Ej: Cien Años de Soledad" />
+        <input type="text" id="title" placeholder="Ej: Cien Años de Soledad" required />
       </div>
       <div class="form-group">
         <label for="author">Autor <span class="required">*</span></label>
-        <input type="text" id="author" placeholder="Ej: Gabriel García Márquez" />
+        <input type="text" id="author" placeholder="Ej: Gabriel García Márquez" required />
       </div>
       <div class="form-group">
         <label for="pub-date">Fecha de Publicación</label>
@@ -44,7 +46,7 @@
       </div>
       <div class="form-group">
         <label for="cover">Portada (imagen)</label>
-        <div class="file-drop" id="cover-drop">
+        <div class="file-drop" id="cover-drop" tabindex="0" role="button" aria-label="Seleccionar portada">
           <span>📷 Arrastra una imagen o haz clic para seleccionar</span>
           <input type="file" id="cover" accept="image/*" hidden />
         </div>
@@ -52,7 +54,7 @@
       </div>
       <div class="form-group">
         <label for="pdf">Archivo PDF <span class="required">*</span></label>
-        <div class="file-drop" id="pdf-drop">
+        <div class="file-drop" id="pdf-drop" tabindex="0" role="button" aria-label="Seleccionar documento PDF">
           <span>📄 Arrastra un PDF o haz clic para seleccionar</span>
           <input type="file" id="pdf" accept="application/pdf" hidden />
         </div>
