@@ -101,9 +101,8 @@ function renderBooks(books) {
 }
 
 function bookCard(b) {
-  // ✅ Fix 1: todos pueden ver el visor sin necesidad de login
   const coverContent = b.cover_url
-    ? `<img src="${b.cover_url}" alt="Portada de ${b.title}" />`
+    ? `<img src="${b.cover_url}" alt="Portada de ${b.title}" loading="lazy" />`
     : '📖';
 
   const dateStr = b.publication_date
@@ -111,30 +110,63 @@ function bookCard(b) {
     : '';
 
   return `
-    <div class="book-card" onclick="window.location.href='viewer.html?id=${b.id}'">
-      <div class="book-card-cover">${coverContent}</div>
-      <div class="book-card-body">
-        <p class="book-card-title">${b.title}</p>
-        <p class="book-card-author">${b.author}</p>
-        ${dateStr ? `<p class="book-card-year">${dateStr}</p>` : ''}
+    <article class="book-card" onclick="window.location.href='viewer.html?id=${b.id}'" role="button" tabindex="0" aria-label="Ver detalles de ${b.title}">
+      <div class="book-card-cover">
+        ${coverContent}
+        <div class="book-card-actions-hover">
+          <span class="book-action-chip">▶ Leer Ahora</span>
+        </div>
       </div>
-    </div>`;
+      <div class="book-card-body">
+        <h3 class="book-card-title">${b.title}</h3>
+        <p class="book-card-author">${b.author}</p>
+        ${dateStr ? `<span class="book-card-year">📅 ${dateStr}</span>` : ''}
+      </div>
+    </article>`;
 }
 
-// ─── Buscador en tiempo real ──────────────────────────────────────────────────
+// ─── Buscador y Filtros por Categoría Fija ────────────────────────────────────
 
-document.getElementById('search-input').addEventListener('input', (e) => {
-  const q = e.target.value.trim().toLowerCase();
-  if (!q) { renderBooks(allBooks); return; }
+let selectedCategory = 'all';
 
-  const filtered = allBooks.filter(b =>
-    b.title.toLowerCase().includes(q)  ||
-    b.author.toLowerCase().includes(q) ||
-    (b.synopsis && b.synopsis.toLowerCase().includes(q))
-  );
+function applyFilters() {
+  const q = document.getElementById('search-input').value.trim().toLowerCase();
+
+  const filtered = allBooks.filter(b => {
+    const title = (b.title || '').toLowerCase();
+    const author = (b.author || '').toLowerCase();
+    const synopsis = (b.synopsis || '').toLowerCase();
+
+    const textMatch = !q ||
+      title.includes(q) ||
+      author.includes(q) ||
+      synopsis.includes(q);
+
+    const categoryMatch = selectedCategory === 'all' ||
+      title.includes(selectedCategory) ||
+      synopsis.includes(selectedCategory);
+
+    return textMatch && categoryMatch;
+  });
 
   renderBooks(filtered);
-});
+}
+
+document.getElementById('search-input').addEventListener('input', applyFilters);
+
+const categoryPillsContainer = document.getElementById('category-pills');
+if (categoryPillsContainer) {
+  categoryPillsContainer.addEventListener('click', (e) => {
+    const pill = e.target.closest('.category-pill');
+    if (!pill) return;
+
+    categoryPillsContainer.querySelectorAll('.category-pill').forEach(btn => btn.classList.remove('active'));
+    pill.classList.add('active');
+
+    selectedCategory = (pill.dataset.category || 'all').toLowerCase();
+    applyFilters();
+  });
+}
 
 // ─── Iniciar ──────────────────────────────────────────────────────────────────
 

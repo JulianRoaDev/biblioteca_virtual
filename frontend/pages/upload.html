@@ -9,7 +9,10 @@
 <body>
   <header>
     <nav class="navbar" aria-label="Navegación principal">
-      <div class="nav-brand">📚 Universo Literario</div>
+      <div class="nav-brand">
+        <span class="nav-brand-icon">📚</span>
+        Universo Literario
+      </div>
       <div class="nav-links">
         <a href="dashboard.html" class="nav-link">Inicio</a>
         <a href="books.html" class="nav-link">Gestionar Libros</a>
@@ -22,18 +25,18 @@
 
   <main class="container">
     <div class="page-header">
-      <h2>Subir Nuevo Libro</h2>
+      <h2>Publicar Nuevo Libro</h2>
     </div>
 
     <div id="upload-alert" class="alert hidden" role="alert"></div>
 
     <div class="upload-card">
       <div class="form-group">
-        <label for="title">Título <span class="required">*</span></label>
+        <label for="title">Título de la Obra <span class="required">*</span></label>
         <input type="text" id="title" placeholder="Ej: Cien Años de Soledad" required />
       </div>
       <div class="form-group">
-        <label for="author">Autor <span class="required">*</span></label>
+        <label for="author">Autor o Escritor <span class="required">*</span></label>
         <input type="text" id="author" placeholder="Ej: Gabriel García Márquez" required />
       </div>
       <div class="form-group">
@@ -41,26 +44,26 @@
         <input type="date" id="pub-date" />
       </div>
       <div class="form-group">
-        <label for="synopsis">Sinopsis</label>
-        <textarea id="synopsis" rows="5" placeholder="Descripción breve del libro..."></textarea>
+        <label for="synopsis">Sinopsis o Resumen</label>
+        <textarea id="synopsis" rows="4" placeholder="Escribe una breve sinopsis del libro..."></textarea>
       </div>
       <div class="form-group">
-        <label for="cover">Portada (imagen)</label>
+        <label for="cover">Portada Digital (Imagen)</label>
         <div class="file-drop" id="cover-drop" tabindex="0" role="button" aria-label="Seleccionar portada">
-          <span>📷 Arrastra una imagen o haz clic para seleccionar</span>
+          <span>📷 Arrastra una imagen o haz clic para seleccionarla</span>
           <input type="file" id="cover" accept="image/*" hidden />
         </div>
         <img id="cover-preview" class="img-preview hidden" alt="Vista previa de portada" />
       </div>
       <div class="form-group">
-        <label for="pdf">Archivo PDF <span class="required">*</span></label>
+        <label for="pdf">Documento PDF <span class="required">*</span></label>
         <div class="file-drop" id="pdf-drop" tabindex="0" role="button" aria-label="Seleccionar documento PDF">
-          <span>📄 Arrastra un PDF o haz clic para seleccionar</span>
+          <span>📄 Arrastra el archivo PDF o haz clic aquí</span>
           <input type="file" id="pdf" accept="application/pdf" hidden />
         </div>
         <p id="pdf-name" class="file-name hidden"></p>
       </div>
-      <button class="btn btn-primary btn-full" id="upload-btn">📤 Subir Libro</button>
+      <button class="btn btn-primary btn-full" id="upload-btn">📤 Publicar Libro</button>
     </div>
   </main>
   <script src="../js/upload.js"></script>

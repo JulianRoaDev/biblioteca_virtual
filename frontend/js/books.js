@@ -25,7 +25,7 @@ async function fetchBooks() {
   return res.json();
 }
 
-// ===== DASHBOARD =====
+// ===== DASHBOARD COMPATIBILITY =====
 if (document.getElementById('recent-grid')) {
   requireAuth();
   setupLogout();
@@ -74,25 +74,28 @@ if (document.getElementById('books-tbody')) {
       tbody.innerHTML = '<tr><td colspan="5" class="loading-text">No se encontraron libros.</td></tr>';
       return;
     }
-    tbody.innerHTML = books.map(b => `
-      <tr>
-        <td>
-          ${b.cover_image
-            ? `<img src="http://localhost:3000${b.cover_image}" class="cover-thumb" alt="portada" />`
-            : `<div class="cover-thumb">📖</div>`}
-        </td>
-        <td><strong>${b.title}</strong></td>
-        <td>${b.author}</td>
-        <td>${b.publication_date ? new Date(b.publication_date).toLocaleDateString('es-CO') : '—'}</td>
-        <td>
-          <div class="actions-cell">
-            <a href="viewer.html?id=${b.id}" class="btn btn-outline btn-sm">👁 Ver</a>
-            <button class="btn btn-sm" style="background:var(--pastel-yellow);color:#92400e;" onclick="openEdit(${b.id})">✏️ Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">🗑 Eliminar</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
+    tbody.innerHTML = books.map(b => {
+      const coverSrc = b.cover_url || (b.cover_image ? (b.cover_image.startsWith('http') ? b.cover_image : `http://localhost:3000${b.cover_image}`) : null);
+      return `
+        <tr>
+          <td>
+            ${coverSrc
+              ? `<img src="${coverSrc}" class="cover-thumb" alt="Portada de ${b.title}" />`
+              : `<div class="cover-thumb">📖</div>`}
+          </td>
+          <td><strong style="color:#FFFFFF;">${b.title}</strong></td>
+          <td style="color:var(--text-muted);">${b.author}</td>
+          <td style="color:var(--text-faint);">${b.publication_date ? new Date(b.publication_date).toLocaleDateString('es-CO') : '—'}</td>
+          <td>
+            <div class="actions-cell">
+              <a href="viewer.html?id=${b.id}" class="btn btn-outline btn-sm">👁 Ver</a>
+              <button class="btn btn-outline btn-sm" style="border-color:rgba(245,158,11,0.5);color:#FBBF24;" onclick="openEdit(${b.id})">✏️ Editar</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteBook(${b.id})">🗑 Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
   }
 
   // Modal de edición
@@ -140,15 +143,19 @@ if (document.getElementById('books-tbody')) {
 }
 
 function bookCard(b) {
+  const coverSrc = b.cover_url || (b.cover_image ? (b.cover_image.startsWith('http') ? b.cover_image : `http://localhost:3000${b.cover_image}`) : null);
   return `
     <div class="book-card" onclick="window.location.href='viewer.html?id=${b.id}'">
       <div class="book-card-cover">
-        ${b.cover_image
-          ? `<img src="http://localhost:3000${b.cover_image}" alt="${b.title}" />`
+        ${coverSrc
+          ? `<img src="${coverSrc}" alt="${b.title}" />`
           : '📖'}
+        <div class="book-card-actions-hover">
+          <span class="book-action-chip">▶ Leer Ahora</span>
+        </div>
       </div>
       <div class="book-card-body">
-        <p class="book-card-title">${b.title}</p>
+        <h3 class="book-card-title">${b.title}</h3>
         <p class="book-card-author">${b.author}</p>
       </div>
     </div>`;

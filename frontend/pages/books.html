@@ -9,7 +9,10 @@
 <body>
   <header>
     <nav class="navbar" aria-label="Navegación principal">
-      <div class="nav-brand">📚 Universo Literario</div>
+      <div class="nav-brand">
+        <span class="nav-brand-icon">📚</span>
+        Universo Literario
+      </div>
       <div class="nav-links">
         <a href="dashboard.html" class="nav-link">Inicio</a>
         <a href="books.html" class="nav-link active" aria-current="page">Gestionar Libros</a>
@@ -22,13 +25,13 @@
 
   <main class="container">
     <div class="page-header">
-      <h2>Gestionar Libros</h2>
-      <a href="upload.html" class="btn btn-primary">+ Nuevo Libro</a>
+      <h2>Catálogo de Libros</h2>
+      <a href="upload.html" class="btn btn-primary">+ Subir Nuevo Libro</a>
     </div>
 
     <div class="search-bar">
       <label for="search-input" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Buscar por título o autor</label>
-      <input type="text" id="search-input" placeholder="🔍 Buscar por título o autor..." />
+      <input type="text" id="search-input" placeholder="🔍 Buscar por título o autor..." autocomplete="off" />
     </div>
 
     <div class="books-table-wrapper">
@@ -53,7 +56,7 @@
   <!-- Modal de edición -->
   <div class="modal-overlay hidden" id="edit-modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
     <div class="modal">
-      <h3 id="modal-title">Editar Libro</h3>
+      <h3 id="modal-title">Editar Publicación</h3>
       <input type="hidden" id="edit-id" />
       <div class="form-group">
         <label for="edit-title">Título</label>

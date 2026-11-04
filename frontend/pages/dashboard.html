@@ -9,7 +9,10 @@
 <body>
   <header>
     <nav class="navbar" aria-label="Navegación principal">
-      <div class="nav-brand">📚 Universo Literario</div>
+      <div class="nav-brand">
+        <span class="nav-brand-icon">📚</span>
+        Universo Literario
+      </div>
       <div class="nav-links" id="nav-links">
         <a href="dashboard.html" class="nav-link active" aria-current="page">Inicio</a>
 
@@ -26,10 +29,39 @@
 
   <main class="container">
 
-    <!-- Hero: visible siempre -->
+    <!-- Hero Banner -->
     <section class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">Bienvenido a la Biblioteca Virtual 📖</h1>
-      <p id="hero-subtitle">Explora la colección digital corporativa y gestiona tus publicaciones.</p>
+      <div class="hero-content">
+        <h1 id="hero-title">Bienvenido a la Biblioteca Virtual 📖</h1>
+        <p id="hero-subtitle">Explora la colección digital corporativa y gestiona tus publicaciones.</p>
+      </div>
+      <div class="hero-illustration" aria-hidden="true">
+        <svg class="cosmic-book-art" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 22L100 4M125 27L142 12M75 27L58 12M152 42L172 32M48 42L28 32" stroke="#00F2FE" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <circle cx="122" cy="18" r="2.5" fill="#EC4899" />
+          <circle cx="78" cy="16" r="2" fill="#00F2FE" />
+          <circle cx="148" cy="35" r="3" fill="#8B5CF6" />
+          <circle cx="52" cy="32" r="2.5" fill="#38BDF8" />
+          <circle cx="100" cy="8" r="3" fill="#FFFFFF" />
+          <path d="M100 135 C130 115 165 118 185 125 L180 65 C160 58 130 55 100 75 C70 55 40 58 20 65 L15 125 C35 118 70 115 100 135 Z" fill="url(#bookGradCover)" stroke="rgba(139, 92, 246, 0.8)" stroke-width="2"/>
+          <path d="M100 130 C128 112 160 114 178 120 L174 68 C156 62 128 60 100 77 C72 60 44 62 26 68 L22 120 C40 114 72 112 100 130 Z" fill="url(#bookGradPages)"/>
+          <path d="M100 77 C125 56 155 58 172 64 L168 70 C150 64 125 62 100 81 Z" fill="#F8FAFC" opacity="0.95"/>
+          <path d="M100 77 C75 56 45 58 28 64 L32 70 C50 64 75 62 100 81 Z" fill="#F8FAFC" opacity="0.95"/>
+          <path d="M100 75 L100 135" stroke="#00F2FE" stroke-width="3" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="bookGradCover" x1="20" y1="60" x2="180" y2="135" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6D28D9"/>
+              <stop offset="0.5" stop-color="#1E1B4B"/>
+              <stop offset="1" stop-color="#0284C7"/>
+            </linearGradient>
+            <linearGradient id="bookGradPages" x1="22" y1="65" x2="178" y2="125" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FFFFFF"/>
+              <stop offset="0.5" stop-color="#E0E7FF"/>
+              <stop offset="1" stop-color="#CFFAFE"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
     </section>
 
     <!-- Stats: solo cuando está logueado -->
@@ -50,16 +82,25 @@
       </div>
     </section>
 
-    <!-- Buscador: visible siempre -->
-    <section class="section" aria-label="Catálogo de libros">
+    <!-- Buscador y Filtros: visible siempre -->
+    <section class="section search-filter-section" aria-label="Catálogo de libros">
       <div class="dashboard-search">
         <label for="search-input" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Buscar libros</label>
         <input
           type="text"
           id="search-input"
-          placeholder="🔍 Buscar por título o autor..."
+          placeholder="Buscar por título, autor o género..."
           autocomplete="off"
         />
+      </div>
+
+      <!-- Filtros de categorías fijas -->
+      <div class="category-pills" id="category-pills">
+        <button type="button" class="category-pill active" data-category="all">Todos</button>
+        <button type="button" class="category-pill" data-category="terror">Terror</button>
+        <button type="button" class="category-pill" data-category="ciencia ficción">Ciencia Ficción</button>
+        <button type="button" class="category-pill" data-category="fantasía">Fantasía</button>
+        <button type="button" class="category-pill" data-category="clásicos">Clásicos</button>
       </div>
 
       <div id="books-status" class="loading-text">Cargando libros...</div>
@@ -75,7 +116,7 @@
       <!-- Banner para no logueados -->
       <div id="guest-banner" class="guest-banner hidden" role="region" aria-label="Aviso de sesión">
         <span aria-hidden="true">🔒</span>
-        <p>Inicia sesión para gestionar y subir libros.</p>
+        <p>Inicia sesión para gestionar y subir libros a la colección.</p>
         <a href="login.html" class="btn btn-primary btn-sm">Iniciar Sesión</a>
       </div>
     </section>
